@@ -1,6 +1,6 @@
 # EmojiShift
 
-Aplikasi enkripsi teks berbasis web yang mengubah pesan biasa menjadi deretan emoji menggunakan algoritma cipher Vigenere yang dimodifikasi.
+Aplikasi enkripsi teks berbasis web yang mengubah pesan biasa menjadi deretan emoji menggunakan algoritma cipher Vigenère yang dimodifikasi — dilengkapi noise emoji acak untuk mempersulit analisis.
 
 Dibangun dengan Python (Flask) dan berjalan di browser.
 
@@ -110,11 +110,11 @@ Catatan: password yang digunakan untuk enkripsi harus sama persis saat dekripsi.
 
 ### Konsep Dasar
 
-EmojiShift adalah implementasi dari **Vigenere Cipher** yang dimodifikasi. Pada Vigenere Cipher tradisional, setiap huruf pesan digeser sejumlah posisi dalam alfabet berdasarkan huruf kunci yang bersesuaian. EmojiShift menerapkan prinsip yang sama, tetapi alfabet yang digunakan bukan 26 huruf Latin, melainkan 125 emoji yang diurutkan berdasarkan standar Unicode RGI (Recommended for General Interchange).
+EmojiShift menggabungkan dua mekanisme: **Vigenère Cipher** sebagai dasar enkripsi, dan **noise emoji** sebagai lapisan pengacak tambahan.
 
 ### Tabel Emoji
 
-File `all-emoji.json` berisi 125 emoji yang menjadi "alfabet" dari cipher ini. Setiap emoji memiliki nomor urut (ID) yang dimulai dari 1. Emoji ini dipilih dari daftar resmi Unicode sehingga dapat ditampilkan di semua platform modern (Windows, Android, iOS, web).
+File `all-emoji.json` berisi 125 emoji yang menjadi "alfabet" dari cipher ini, diurutkan berdasarkan ID dari 1 sampai 125. Emoji ini dipilih dari daftar resmi Unicode sehingga dapat ditampilkan di semua platform modern.
 
 Contoh sebagian tabel:
 
@@ -124,57 +124,82 @@ Contoh sebagian tabel:
 | 2  | 😃 | grinning face with big eyes |
 | 3  | 😄 | grinning face with smiling eyes |
 | ... | ... | ... |
-| 97 | 👿 | angry face with horns |
-| 98 | 💀 | skull |
+| 94 | 👿 | angry face with horns |
+| 95 | 💀 | skull |
+
+### Ruang Karakter
+
+EmojiShift hanya memproses **printable ASCII** — karakter dari spasi (kode 32) sampai tilde `~` (kode 126), total 95 karakter. Sebelum di-shift, nilai karakter dinormalkan ke rentang 0–94 dengan mengurangi 32. Ini mencegah overflow karena jumlah emoji (125) lebih besar dari rentang yang dipakai (95).
 
 ### Proses Enkripsi
 
-Setiap karakter plaintext diubah menggunakan rumus berikut:
+Untuk setiap karakter plaintext pada posisi `i`:
 
 ```
-index = (ord(karakter) + ord(kunci[i % panjang_kunci])) % 125
-ciphertext += emoji_table[index]
+shift  = ord(password[i % len(password)])
+index  = (ord(karakter) - 32 + shift) % 95
+output = emoji_table[index]
 ```
 
 Penjelasan per bagian:
 
-- `ord(karakter)` mengubah karakter menjadi nilai numerik ASCII. Misalnya, huruf `h` bernilai 104.
-- `ord(kunci[i % panjang_kunci])` mengambil karakter kunci yang bersesuaian dengan posisi `i`, lalu dikonversi ke nilai numerik. Operator `%` memastikan kunci berulang dari awal jika panjang pesan melebihi panjang kunci.
-- Kedua nilai dijumlahkan, lalu dibagi modulo 125 agar hasilnya selalu berada dalam rentang 0 sampai 124.
-- Hasilnya digunakan sebagai indeks untuk mengambil emoji dari tabel.
+- `ord(karakter) - 32` mengubah karakter menjadi nilai 0–94. Misalnya, `'h'` (kode 104) menjadi 72.
+- `shift` adalah nilai numerik karakter password yang bersesuaian. Password berulang dari awal jika pesan lebih panjang dari password.
+- Keduanya dijumlahkan lalu mod 95 agar hasilnya selalu dalam rentang 0–94.
+- Hasil digunakan sebagai indeks untuk mengambil emoji dari tabel.
 
-Contoh langkah demi langkah dengan pesan `"ha"` dan kunci `"ab"`:
+Setelah emoji asli ditemukan, ditambahkan **2 noise emoji** di belakangnya. Noise ini bukan acak murni — di-generate dari `SHA-256(password:index:j)` sehingga nilainya deterministik dan hanya bisa diketahui oleh pemegang password yang benar.
+
+Struktur output per karakter:
 
 ```
-Karakter 'h' -> ord('h') = 104
-Kunci    'a' -> ord('a') = 97
-Index         = (104 + 97) % 125 = 201 % 125 = 76
-Emoji[76]     = 🥺
-
-Karakter 'a' -> ord('a') = 97
-Kunci    'b' -> ord('b') = 98
-Index         = (97 + 98) % 125 = 195 % 125 = 70
-Emoji[70]     = 🙁
+[ emoji_asli | noise_1 | noise_2 ]
 ```
 
-Maka `"ha"` dengan kunci `"ab"` menjadi `"🥺🙁"`.
+Sehingga pesan `"suki"` (4 karakter) menghasilkan 12 emoji total.
+
+Contoh langkah demi langkah dengan pesan `"ha"` dan password `"ab"`:
+
+```
+Karakter 'h' (posisi 0)
+  ord('h') - 32 = 72
+  shift = ord('a') = 97
+  index = (72 + 97) % 95 = 169 % 95 = 74
+  emoji_asli = emoji_table[74]    -> 😦
+  noise_1, noise_2 = SHA-256("ab:0:0") % 125, SHA-256("ab:0:1") % 125
+
+Karakter 'a' (posisi 1)
+  ord('a') - 32 = 65
+  shift = ord('b') = 98
+  index = (65 + 98) % 95 = 163 % 95 = 68
+  emoji_asli = emoji_table[68]    -> ☹
+  noise_1, noise_2 = SHA-256("ab:1:0") % 125, SHA-256("ab:1:1") % 125
+```
+
+Output akhir: 6 emoji (2 karakter × 3 emoji per karakter).
 
 ### Proses Dekripsi
 
-Dekripsi adalah kebalikan dari enkripsi:
+Karena struktur ciphertext selalu `[asli, noise, noise]` per karakter, dekripsi hanya perlu mengambil emoji pada posisi `0, 3, 6, 9, ...` dan mengabaikan sisanya:
 
 ```
-index       = posisi_emoji_di_tabel
-karakter    = chr((index - ord(kunci[i % panjang_kunci])) % 125)
+emoji  = ciphertext[i * 3]
+index  = posisi_emoji_di_tabel
+shift  = ord(password[i % len(password)])
+karakter = chr((index - shift) % 95 + 32)
 ```
 
-Program mencari posisi setiap emoji di dalam tabel, lalu menguranginya dengan nilai kunci. Operator modulo memastikan hasil tidak negatif meskipun pengurangan menghasilkan bilangan di bawah nol.
+Operator mod memastikan hasil tidak negatif meskipun pengurangan menghasilkan bilangan di bawah nol.
 
-### Mengapa Vigenere?
+### Mengapa Noise?
 
-Cipher Caesar sederhana menggunakan satu angka sebagai kunci geser, sehingga seluruh pesan digeser dengan jumlah yang sama. Ini mudah dipecahkan dengan analisis frekuensi karena pola distribusi karakter tetap terjaga.
+Tanpa noise, panjang ciphertext sama persis dengan panjang plaintext — penyerang bisa langsung tahu jumlah karakter pesan. Dengan 2 noise emoji per karakter, panjang ciphertext selalu 3× panjang plaintext dan tidak memberikan informasi tentang isi pesan.
 
-Vigenere menggunakan kunci berupa string, sehingga setiap karakter digeser dengan jumlah yang berbeda. Satu huruf yang sama di pesan asli bisa menghasilkan emoji yang berbeda di ciphertext tergantung posisinya. Ini membuat analisis frekuensi jauh lebih sulit dilakukan.
+Selain itu, karena noise di-generate dari password menggunakan SHA-256, tanpa password yang benar tidak ada cara untuk membedakan mana emoji asli dan mana noise hanya dari melihat ciphertext.
+
+### Mengapa Vigenère?
+
+Caesar cipher menggunakan satu angka geser untuk seluruh pesan, sehingga distribusi frekuensi emoji di output tetap terjaga dan mudah dianalisis. Vigenère menggunakan password berupa string, sehingga satu karakter yang sama di plaintext bisa menghasilkan emoji berbeda tergantung posisinya — membuat analisis frekuensi jauh lebih sulit.
 
 ---
 
@@ -186,6 +211,7 @@ emojishift/
 ├── emojishift.py       library enkripsi dan dekripsi
 ├── all-emoji.json      database 125 emoji terurut
 ├── requirements.txt    daftar dependensi Python
+├── Procfile            konfigurasi deployment (gunicorn)
 └── templates/
     └── index.html      halaman web (HTML, CSS, JavaScript)
 ```

@@ -1,4 +1,5 @@
 import hashlib
+import hmac
 import json
 import os
 
@@ -9,6 +10,7 @@ _emoji_to_index: dict = {}
 NOISE_COUNT = 2   # noise emoji per karakter asli
 ASCII_BASE = 32   # printable ASCII mulai dari spasi
 ASCII_RANGE = 95  # spasi (32) sampai ~ (126)
+TAG_LEN = 4       # jumlah emoji untuk HMAC tag di awal ciphertext
 
 
 def _load():
@@ -45,6 +47,13 @@ def total() -> int:
     return len(_emoji_list)
 
 
+def _make_tag(password: str, text: str) -> str:
+    """Buat 4 emoji tag dari HMAC-SHA256(password, text)."""
+    n = len(_emoji_list)
+    mac = hmac.new(password.encode(), text.encode(), hashlib.sha256).digest()
+    return "".join(_emoji_list[b % n] for b in mac[:TAG_LEN])
+
+
 def _noise_emojis(password: str, char_index: int) -> list:
     """Generate NOISE_COUNT emoji noise deterministik dari password + index."""
     n = len(_emoji_list)
@@ -62,9 +71,12 @@ def encrypt(text: str, password: str) -> str:
         raise ValueError("Password cannot be empty")
     n = len(_emoji_list)
     shifts = [ord(c) for c in password]
-    out = []
+
+    # tag 4 emoji di awal
+    tag = _make_tag(password, text)
+
+    out = [tag]
     for i, ch in enumerate(text):
-        # shift dalam ruang printable ASCII (mod 95), map ke emoji
         idx = ((ord(ch) - ASCII_BASE) + shifts[i % len(shifts)]) % ASCII_RANGE
         real = _emoji_list[idx % n]
         noise = _noise_emojis(password, i)
@@ -81,15 +93,30 @@ def decrypt(cipher: str, password: str) -> str:
 
     tokens = list(cipher)
 
+    # pisah tag (4 emoji pertama) dari isi
+    if len(tokens) < TAG_LEN:
+        raise ValueError("Invalid ciphertext")
+
+    tag_emoji = "".join(tokens[:TAG_LEN])
+    body = tokens[TAG_LEN:]
+
+    # decrypt dulu baru verifikasi tag
     result = []
     step = 1 + NOISE_COUNT
-    for i, tok_idx in enumerate(range(0, len(tokens), step)):
-        if tok_idx >= len(tokens):
+    for i, tok_idx in enumerate(range(0, len(body), step)):
+        if tok_idx >= len(body):
             break
-        tok = tokens[tok_idx]
+        tok = body[tok_idx]
         if tok not in _emoji_to_index:
             result.append(tok)
             continue
         idx = (_emoji_to_index[tok] - shifts[i % len(shifts)]) % ASCII_RANGE
         result.append(chr(idx + ASCII_BASE))
-    return "".join(result)
+    plaintext = "".join(result)
+
+    # verifikasi tag
+    expected_tag = _make_tag(password, plaintext)
+    if tag_emoji != expected_tag:
+        raise ValueError("Wrong password or corrupted ciphertext")
+
+    return plaintext
