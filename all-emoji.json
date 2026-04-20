@@ -1,0 +1,752 @@
+[
+  {
+    "id": 1,
+    "emoji": "😀",
+    "name": "grinning face",
+    "unicode": "U+1F600"
+  },
+  {
+    "id": 2,
+    "emoji": "😃",
+    "name": "grinning face with big eyes",
+    "unicode": "U+1F603"
+  },
+  {
+    "id": 3,
+    "emoji": "😄",
+    "name": "grinning face with smiling eyes",
+    "unicode": "U+1F604"
+  },
+  {
+    "id": 4,
+    "emoji": "😁",
+    "name": "beaming face with smiling eyes",
+    "unicode": "U+1F601"
+  },
+  {
+    "id": 5,
+    "emoji": "😆",
+    "name": "grinning squinting face",
+    "unicode": "U+1F606"
+  },
+  {
+    "id": 6,
+    "emoji": "😅",
+    "name": "grinning face with sweat",
+    "unicode": "U+1F605"
+  },
+  {
+    "id": 7,
+    "emoji": "🤣",
+    "name": "rolling on the floor laughing",
+    "unicode": "U+1F923"
+  },
+  {
+    "id": 8,
+    "emoji": "😂",
+    "name": "face with tears of joy",
+    "unicode": "U+1F602"
+  },
+  {
+    "id": 9,
+    "emoji": "🙂",
+    "name": "slightly smiling face",
+    "unicode": "U+1F642"
+  },
+  {
+    "id": 10,
+    "emoji": "🙃",
+    "name": "upside-down face",
+    "unicode": "U+1F643"
+  },
+  {
+    "id": 11,
+    "emoji": "😉",
+    "name": "winking face",
+    "unicode": "U+1F609"
+  },
+  {
+    "id": 12,
+    "emoji": "😊",
+    "name": "smiling face with smiling eyes",
+    "unicode": "U+1F60A"
+  },
+  {
+    "id": 13,
+    "emoji": "😇",
+    "name": "smiling face with halo",
+    "unicode": "U+1F607"
+  },
+  {
+    "id": 14,
+    "emoji": "🥰",
+    "name": "smiling face with hearts",
+    "unicode": "U+1F970"
+  },
+  {
+    "id": 15,
+    "emoji": "😍",
+    "name": "smiling face with heart-eyes",
+    "unicode": "U+1F60D"
+  },
+  {
+    "id": 16,
+    "emoji": "🤩",
+    "name": "star-struck",
+    "unicode": "U+1F929"
+  },
+  {
+    "id": 17,
+    "emoji": "😘",
+    "name": "face blowing a kiss",
+    "unicode": "U+1F618"
+  },
+  {
+    "id": 18,
+    "emoji": "😗",
+    "name": "kissing face",
+    "unicode": "U+1F617"
+  },
+  {
+    "id": 19,
+    "emoji": "☺",
+    "name": "smiling face",
+    "unicode": "U+263A"
+  },
+  {
+    "id": 20,
+    "emoji": "😚",
+    "name": "kissing face with closed eyes",
+    "unicode": "U+1F61A"
+  },
+  {
+    "id": 21,
+    "emoji": "😙",
+    "name": "kissing face with smiling eyes",
+    "unicode": "U+1F619"
+  },
+  {
+    "id": 22,
+    "emoji": "🥲",
+    "name": "smiling face with tear",
+    "unicode": "U+1F972"
+  },
+  {
+    "id": 23,
+    "emoji": "😋",
+    "name": "face savoring food",
+    "unicode": "U+1F60B"
+  },
+  {
+    "id": 24,
+    "emoji": "😛",
+    "name": "face with tongue",
+    "unicode": "U+1F61B"
+  },
+  {
+    "id": 25,
+    "emoji": "😜",
+    "name": "winking face with tongue",
+    "unicode": "U+1F61C"
+  },
+  {
+    "id": 26,
+    "emoji": "🤪",
+    "name": "zany face",
+    "unicode": "U+1F92A"
+  },
+  {
+    "id": 27,
+    "emoji": "😝",
+    "name": "squinting face with tongue",
+    "unicode": "U+1F61D"
+  },
+  {
+    "id": 28,
+    "emoji": "🤑",
+    "name": "money-mouth face",
+    "unicode": "U+1F911"
+  },
+  {
+    "id": 29,
+    "emoji": "🤗",
+    "name": "hugging face",
+    "unicode": "U+1F917"
+  },
+  {
+    "id": 30,
+    "emoji": "🤭",
+    "name": "face with hand over mouth",
+    "unicode": "U+1F92D"
+  },
+  {
+    "id": 31,
+    "emoji": "🤫",
+    "name": "shushing face",
+    "unicode": "U+1F92B"
+  },
+  {
+    "id": 32,
+    "emoji": "🤔",
+    "name": "thinking face",
+    "unicode": "U+1F914"
+  },
+  {
+    "id": 33,
+    "emoji": "🤐",
+    "name": "zipper-mouth face",
+    "unicode": "U+1F910"
+  },
+  {
+    "id": 34,
+    "emoji": "🤨",
+    "name": "face with raised eyebrow",
+    "unicode": "U+1F928"
+  },
+  {
+    "id": 35,
+    "emoji": "😐",
+    "name": "neutral face",
+    "unicode": "U+1F610"
+  },
+  {
+    "id": 36,
+    "emoji": "😑",
+    "name": "expressionless face",
+    "unicode": "U+1F611"
+  },
+  {
+    "id": 37,
+    "emoji": "😶",
+    "name": "face without mouth",
+    "unicode": "U+1F636"
+  },
+  {
+    "id": 38,
+    "emoji": "😏",
+    "name": "smirking face",
+    "unicode": "U+1F60F"
+  },
+  {
+    "id": 39,
+    "emoji": "😒",
+    "name": "unamused face",
+    "unicode": "U+1F612"
+  },
+  {
+    "id": 40,
+    "emoji": "🙄",
+    "name": "face with rolling eyes",
+    "unicode": "U+1F644"
+  },
+  {
+    "id": 41,
+    "emoji": "😬",
+    "name": "grimacing face",
+    "unicode": "U+1F62C"
+  },
+  {
+    "id": 42,
+    "emoji": "🤥",
+    "name": "lying face",
+    "unicode": "U+1F925"
+  },
+  {
+    "id": 43,
+    "emoji": "😌",
+    "name": "relieved face",
+    "unicode": "U+1F60C"
+  },
+  {
+    "id": 44,
+    "emoji": "😔",
+    "name": "pensive face",
+    "unicode": "U+1F614"
+  },
+  {
+    "id": 45,
+    "emoji": "😪",
+    "name": "sleepy face",
+    "unicode": "U+1F62A"
+  },
+  {
+    "id": 46,
+    "emoji": "🤤",
+    "name": "drooling face",
+    "unicode": "U+1F924"
+  },
+  {
+    "id": 47,
+    "emoji": "😴",
+    "name": "sleeping face",
+    "unicode": "U+1F634"
+  },
+  {
+    "id": 48,
+    "emoji": "😷",
+    "name": "face with medical mask",
+    "unicode": "U+1F637"
+  },
+  {
+    "id": 49,
+    "emoji": "🤒",
+    "name": "face with thermometer",
+    "unicode": "U+1F912"
+  },
+  {
+    "id": 50,
+    "emoji": "🤕",
+    "name": "face with head-bandage",
+    "unicode": "U+1F915"
+  },
+  {
+    "id": 51,
+    "emoji": "🤢",
+    "name": "nauseated face",
+    "unicode": "U+1F922"
+  },
+  {
+    "id": 52,
+    "emoji": "🤮",
+    "name": "face vomiting",
+    "unicode": "U+1F92E"
+  },
+  {
+    "id": 53,
+    "emoji": "🤧",
+    "name": "sneezing face",
+    "unicode": "U+1F927"
+  },
+  {
+    "id": 54,
+    "emoji": "🥵",
+    "name": "hot face",
+    "unicode": "U+1F975"
+  },
+  {
+    "id": 55,
+    "emoji": "🥶",
+    "name": "cold face",
+    "unicode": "U+1F976"
+  },
+  {
+    "id": 56,
+    "emoji": "🥴",
+    "name": "woozy face",
+    "unicode": "U+1F974"
+  },
+  {
+    "id": 57,
+    "emoji": "😵",
+    "name": "knocked-out face",
+    "unicode": "U+1F635"
+  },
+  {
+    "id": 58,
+    "emoji": "🤯",
+    "name": "exploding head",
+    "unicode": "U+1F92F"
+  },
+  {
+    "id": 59,
+    "emoji": "🤠",
+    "name": "cowboy hat face",
+    "unicode": "U+1F920"
+  },
+  {
+    "id": 60,
+    "emoji": "🥳",
+    "name": "partying face",
+    "unicode": "U+1F973"
+  },
+  {
+    "id": 61,
+    "emoji": "🥸",
+    "name": "disguised face",
+    "unicode": "U+1F978"
+  },
+  {
+    "id": 62,
+    "emoji": "😎",
+    "name": "smiling face with sunglasses",
+    "unicode": "U+1F60E"
+  },
+  {
+    "id": 63,
+    "emoji": "🤓",
+    "name": "nerd face",
+    "unicode": "U+1F913"
+  },
+  {
+    "id": 64,
+    "emoji": "🧐",
+    "name": "face with monocle",
+    "unicode": "U+1F9D0"
+  },
+  {
+    "id": 65,
+    "emoji": "😕",
+    "name": "confused face",
+    "unicode": "U+1F615"
+  },
+  {
+    "id": 66,
+    "emoji": "😟",
+    "name": "worried face",
+    "unicode": "U+1F61F"
+  },
+  {
+    "id": 67,
+    "emoji": "🙁",
+    "name": "slightly frowning face",
+    "unicode": "U+1F641"
+  },
+  {
+    "id": 68,
+    "emoji": "☹",
+    "name": "frowning face",
+    "unicode": "U+2639"
+  },
+  {
+    "id": 69,
+    "emoji": "😮",
+    "name": "face with open mouth",
+    "unicode": "U+1F62E"
+  },
+  {
+    "id": 70,
+    "emoji": "😯",
+    "name": "hushed face",
+    "unicode": "U+1F62F"
+  },
+  {
+    "id": 71,
+    "emoji": "😲",
+    "name": "astonished face",
+    "unicode": "U+1F632"
+  },
+  {
+    "id": 72,
+    "emoji": "😳",
+    "name": "flushed face",
+    "unicode": "U+1F633"
+  },
+  {
+    "id": 73,
+    "emoji": "🥺",
+    "name": "pleading face",
+    "unicode": "U+1F97A"
+  },
+  {
+    "id": 74,
+    "emoji": "😦",
+    "name": "frowning face with open mouth",
+    "unicode": "U+1F626"
+  },
+  {
+    "id": 75,
+    "emoji": "😧",
+    "name": "anguished face",
+    "unicode": "U+1F627"
+  },
+  {
+    "id": 76,
+    "emoji": "😨",
+    "name": "fearful face",
+    "unicode": "U+1F628"
+  },
+  {
+    "id": 77,
+    "emoji": "😰",
+    "name": "anxious face with sweat",
+    "unicode": "U+1F630"
+  },
+  {
+    "id": 78,
+    "emoji": "😥",
+    "name": "sad but relieved face",
+    "unicode": "U+1F625"
+  },
+  {
+    "id": 79,
+    "emoji": "😢",
+    "name": "crying face",
+    "unicode": "U+1F622"
+  },
+  {
+    "id": 80,
+    "emoji": "😭",
+    "name": "loudly crying face",
+    "unicode": "U+1F62D"
+  },
+  {
+    "id": 81,
+    "emoji": "😱",
+    "name": "face screaming in fear",
+    "unicode": "U+1F631"
+  },
+  {
+    "id": 82,
+    "emoji": "😖",
+    "name": "confounded face",
+    "unicode": "U+1F616"
+  },
+  {
+    "id": 83,
+    "emoji": "😣",
+    "name": "persevering face",
+    "unicode": "U+1F623"
+  },
+  {
+    "id": 84,
+    "emoji": "😞",
+    "name": "disappointed face",
+    "unicode": "U+1F61E"
+  },
+  {
+    "id": 85,
+    "emoji": "😓",
+    "name": "downcast face with sweat",
+    "unicode": "U+1F613"
+  },
+  {
+    "id": 86,
+    "emoji": "😩",
+    "name": "weary face",
+    "unicode": "U+1F629"
+  },
+  {
+    "id": 87,
+    "emoji": "😫",
+    "name": "tired face",
+    "unicode": "U+1F62B"
+  },
+  {
+    "id": 88,
+    "emoji": "🥱",
+    "name": "yawning face",
+    "unicode": "U+1F971"
+  },
+  {
+    "id": 89,
+    "emoji": "😤",
+    "name": "face with steam from nose",
+    "unicode": "U+1F624"
+  },
+  {
+    "id": 90,
+    "emoji": "😡",
+    "name": "pouting face",
+    "unicode": "U+1F621"
+  },
+  {
+    "id": 91,
+    "emoji": "😠",
+    "name": "angry face",
+    "unicode": "U+1F620"
+  },
+  {
+    "id": 92,
+    "emoji": "🤬",
+    "name": "face with symbols on mouth",
+    "unicode": "U+1F92C"
+  },
+  {
+    "id": 93,
+    "emoji": "😈",
+    "name": "smiling face with horns",
+    "unicode": "U+1F608"
+  },
+  {
+    "id": 94,
+    "emoji": "👿",
+    "name": "angry face with horns",
+    "unicode": "U+1F47F"
+  },
+  {
+    "id": 95,
+    "emoji": "💀",
+    "name": "skull",
+    "unicode": "U+1F480"
+  },
+  {
+    "id": 96,
+    "emoji": "☠",
+    "name": "skull and crossbones",
+    "unicode": "U+2620"
+  },
+  {
+    "id": 97,
+    "emoji": "💩",
+    "name": "pile of poo",
+    "unicode": "U+1F4A9"
+  },
+  {
+    "id": 98,
+    "emoji": "🤡",
+    "name": "clown face",
+    "unicode": "U+1F921"
+  },
+  {
+    "id": 99,
+    "emoji": "👹",
+    "name": "ogre",
+    "unicode": "U+1F479"
+  },
+  {
+    "id": 100,
+    "emoji": "👺",
+    "name": "goblin",
+    "unicode": "U+1F47A"
+  },
+  {
+    "id": 101,
+    "emoji": "👻",
+    "name": "ghost",
+    "unicode": "U+1F47B"
+  },
+  {
+    "id": 102,
+    "emoji": "👽",
+    "name": "alien",
+    "unicode": "U+1F47D"
+  },
+  {
+    "id": 103,
+    "emoji": "👾",
+    "name": "alien monster",
+    "unicode": "U+1F47E"
+  },
+  {
+    "id": 104,
+    "emoji": "🤖",
+    "name": "robot",
+    "unicode": "U+1F916"
+  },
+  {
+    "id": 105,
+    "emoji": "😺",
+    "name": "grinning cat",
+    "unicode": "U+1F63A"
+  },
+  {
+    "id": 106,
+    "emoji": "😸",
+    "name": "grinning cat with smiling eyes",
+    "unicode": "U+1F638"
+  },
+  {
+    "id": 107,
+    "emoji": "😹",
+    "name": "cat with tears of joy",
+    "unicode": "U+1F639"
+  },
+  {
+    "id": 108,
+    "emoji": "😻",
+    "name": "smiling cat with heart-eyes",
+    "unicode": "U+1F63B"
+  },
+  {
+    "id": 109,
+    "emoji": "😼",
+    "name": "cat with wry smile",
+    "unicode": "U+1F63C"
+  },
+  {
+    "id": 110,
+    "emoji": "😽",
+    "name": "kissing cat",
+    "unicode": "U+1F63D"
+  },
+  {
+    "id": 111,
+    "emoji": "🙀",
+    "name": "weary cat",
+    "unicode": "U+1F640"
+  },
+  {
+    "id": 112,
+    "emoji": "😿",
+    "name": "crying cat",
+    "unicode": "U+1F63F"
+  },
+  {
+    "id": 113,
+    "emoji": "😾",
+    "name": "pouting cat",
+    "unicode": "U+1F63E"
+  },
+  {
+    "id": 114,
+    "emoji": "🙈",
+    "name": "see-no-evil monkey",
+    "unicode": "U+1F648"
+  },
+  {
+    "id": 115,
+    "emoji": "🙉",
+    "name": "hear-no-evil monkey",
+    "unicode": "U+1F649"
+  },
+  {
+    "id": 116,
+    "emoji": "🙊",
+    "name": "speak-no-evil monkey",
+    "unicode": "U+1F64A"
+  },
+  {
+    "id": 117,
+    "emoji": "💋",
+    "name": "kiss mark",
+    "unicode": "U+1F48B"
+  },
+  {
+    "id": 118,
+    "emoji": "💯",
+    "name": "hundred points",
+    "unicode": "U+1F4AF"
+  },
+  {
+    "id": 119,
+    "emoji": "💢",
+    "name": "anger symbol",
+    "unicode": "U+1F4A2"
+  },
+  {
+    "id": 120,
+    "emoji": "💥",
+    "name": "collision",
+    "unicode": "U+1F4A5"
+  },
+  {
+    "id": 121,
+    "emoji": "💫",
+    "name": "dizzy",
+    "unicode": "U+1F4AB"
+  },
+  {
+    "id": 122,
+    "emoji": "💦",
+    "name": "sweat droplets",
+    "unicode": "U+1F4A6"
+  },
+  {
+    "id": 123,
+    "emoji": "💨",
+    "name": "dashing away",
+    "unicode": "U+1F4A8"
+  },
+  {
+    "id": 124,
+    "emoji": "🕳",
+    "name": "hole",
+    "unicode": "U+1F573"
+  },
+  {
+    "id": 125,
+    "emoji": "💬",
+    "name": "speech bubble",
+    "unicode": "U+1F4AC"
+  }
+]

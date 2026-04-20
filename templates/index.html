@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmojiShift</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:      #A8D8EA;
+      --blue-dark: #7EC8E3;
+      --blue-deep: #3A86A8;
+      --ink:       #0D1117;
+      --paper:     #F0F8FF;
+      --white:     #FFFFFF;
+      --muted:     #6B7B8D;
+      --border:    3px solid var(--ink);
+      --shadow:    4px 4px 0px var(--ink);
+      --shadow-lg: 6px 6px 0px var(--ink);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Space Mono', monospace;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+      /* subtle dot grid */
+      background-image: radial-gradient(var(--blue-dark) 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-attachment: fixed;
+    }
+
+    /* ── layout ── */
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── header ── */
+    header {
+      background: var(--ink);
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 28px 32px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .header-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 8vw, 72px);
+      color: var(--blue);
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .header-title span {
+      color: var(--white);
+    }
+
+    .header-meta {
+      text-align: right;
+      font-size: 10px;
+      color: #6B8A9A;
+      line-height: 1.8;
+      letter-spacing: 1px;
+    }
+
+    .header-meta strong {
+      color: var(--blue);
+      display: block;
+      font-size: 13px;
+    }
+
+    /* ── card ── */
+    .card {
+      background: var(--white);
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 28px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-label::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--ink);
+      opacity: 0.15;
+    }
+
+    /* ── inputs ── */
+    textarea, input[type="text"], input[type="password"] {
+      width: 100%;
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      background: var(--paper);
+      color: var(--ink);
+      border: var(--border);
+      padding: 14px 16px;
+      outline: none;
+      resize: none;
+      transition: box-shadow 0.1s;
+      display: block;
+    }
+
+    textarea:focus, input:focus {
+      box-shadow: var(--shadow);
+      background: var(--white);
+    }
+
+    textarea { min-height: 100px; line-height: 1.7; }
+
+    .pw-wrap {
+      position: relative;
+    }
+
+    .pw-wrap input {
+      padding-right: 80px;
+    }
+
+    .pw-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+    }
+
+    .pw-toggle:hover { color: var(--ink); }
+
+    /* ── mode tabs ── */
+    .mode-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      width: fit-content;
+    }
+
+    .tab {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 12px 28px;
+      cursor: pointer;
+      border: none;
+      background: var(--white);
+      color: var(--muted);
+      transition: background 0.1s, color 0.1s;
+      border-right: var(--border);
+      outline: none;
+    }
+
+    .tab:last-child { border-right: none; }
+
+    .tab.active {
+      background: var(--blue);
+      color: var(--ink);
+    }
+
+    .tab:not(.active):hover {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    /* ── main button ── */
+    .btn-run {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: var(--blue);
+      color: var(--ink);
+      border: var(--border);
+      padding: 16px 40px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.08s, box-shadow 0.08s, background 0.1s;
+      width: 100%;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-run:hover {
+      background: var(--blue-dark);
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-run:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .btn-run.loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    /* ── output ── */
+    .output-box {
+      min-height: 100px;
+      background: var(--blue);
+      border: var(--border);
+      padding: 16px;
+      font-size: 22px;
+      line-height: 1.6;
+      word-break: break-all;
+      letter-spacing: 2px;
+      position: relative;
+    }
+
+    .output-box.plaintext {
+      font-size: 15px;
+      letter-spacing: 0;
+      line-height: 1.8;
+      background: var(--paper);
+    }
+
+    .output-box.empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .output-box:hover .copy-btn { opacity: 1; }
+    .copy-btn:hover { background: var(--blue-deep); }
+
+    /* ── status ── */
+    .status {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-top: 12px;
+      min-height: 16px;
+      transition: color 0.2s;
+    }
+
+    .status.error { color: #C0392B; }
+    .status.ok    { color: var(--blue-deep); }
+
+    /* ── how it works ── */
+    .explainer {
+      background: var(--ink);
+      color: var(--blue);
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 28px;
+      margin-top: 36px;
+    }
+
+    .explainer h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--white);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .formula {
+      background: rgba(168, 216, 234, 0.1);
+      border: 1px solid rgba(168, 216, 234, 0.3);
+      padding: 14px 18px;
+      font-size: 12px;
+      line-height: 2;
+      margin: 12px 0;
+      color: var(--blue);
+    }
+
+    .formula strong { color: var(--white); }
+
+    .explainer p {
+      font-size: 11px;
+      line-height: 1.9;
+      color: #8AABB8;
+      margin-top: 12px;
+    }
+
+    /* ── spinner ── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid var(--ink);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: none;
+    }
+    .loading .spinner { display: block; }
+
+    /* ── entrance animation ── */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    header      { animation: slideUp 0.4s ease both; }
+    .card       { animation: slideUp 0.4s ease both; }
+    .card:nth-child(2) { animation-delay: 0.05s; }
+    .card:nth-child(3) { animation-delay: 0.10s; }
+    .explainer  { animation: slideUp 0.4s 0.15s ease both; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- header -->
+  <header>
+    <div class="header-title">
+      <span>Emoji</span>Shift
+    </div>
+    <div class="header-meta">
+      <strong>{{ emoji_count }} EMOJI</strong>
+      VIGENERE-STYLE CIPHER<br>
+      UNICODE RGI &nbsp;/&nbsp; SYMMETRIC KEY
+    </div>
+  </header>
+
+  <!-- mode tabs -->
+  <div class="mode-tabs">
+    <button class="tab active" id="tab-enc" onclick="setMode('encrypt')">ENCRYPT</button>
+    <button class="tab"        id="tab-dec" onclick="setMode('decrypt')">DECRYPT</button>
+  </div>
+
+  <!-- input card -->
+  <div class="card">
+    <div class="card-label" id="input-label">PLAINTEXT INPUT</div>
+    <textarea id="txt-input" placeholder="type your message here..."></textarea>
+  </div>
+
+  <!-- password card -->
+  <div class="card">
+    <div class="card-label">PASSWORD</div>
+    <div class="pw-wrap">
+      <input type="password" id="txt-pw" placeholder="enter secret key...">
+      <span class="pw-toggle" onclick="togglePw()">SHOW</span>
+    </div>
+  </div>
+
+  <!-- run button -->
+  <button class="btn-run" id="btn-run" onclick="run()">
+    <div class="spinner" id="spinner"></div>
+    <span id="btn-label">ENCRYPT →</span>
+  </button>
+
+  <!-- output card -->
+  <div class="card" style="margin-top: 20px;">
+    <div class="card-label" id="output-label">CIPHERTEXT OUTPUT</div>
+    <div class="output-box empty" id="output-box">
+      <button class="copy-btn" onclick="copyOut()">COPY</button>
+      <span id="output-placeholder">output appears here</span>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <!-- explainer -->
+  <div class="explainer">
+    <h2>HOW IT WORKS</h2>
+    <div class="formula">
+      <strong>ENCRYPT:</strong> index = (ord(char) + ord(key[i % len(key)])) % {{ emoji_count }}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ciphertext += emoji_table[index]
+    </div>
+    <div class="formula">
+      <strong>DECRYPT:</strong> index = position of emoji in table<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;char = chr((index − ord(key[i % len(key)])) % {{ emoji_count }})
+    </div>
+    <p>
+      Each character is shifted by a different amount determined by the corresponding
+      character of the password — cycling back to the start when the password runs out.
+      This is the same principle as the Vigenère cipher, but the output alphabet is
+      {{ emoji_count }} emoji instead of 26 letters.
+    </p>
+  </div>
+
+</div>
+
+<script>
+  let mode = 'encrypt';
+
+  function setMode(m) {
+    mode = m;
+    document.getElementById('tab-enc').classList.toggle('active', m === 'encrypt');
+    document.getElementById('tab-dec').classList.toggle('active', m === 'decrypt');
+    document.getElementById('btn-label').textContent   = m === 'encrypt' ? 'ENCRYPT →' : '← DECRYPT';
+    document.getElementById('input-label').textContent = m === 'encrypt' ? 'PLAINTEXT INPUT' : 'CIPHERTEXT INPUT';
+    document.getElementById('output-label').textContent = m === 'encrypt' ? 'CIPHERTEXT OUTPUT' : 'PLAINTEXT OUTPUT';
+    clearOutput();
+  }
+
+  function togglePw() {
+    const inp = document.getElementById('txt-pw');
+    const btn = document.querySelector('.pw-toggle');
+    if (inp.type === 'password') { inp.type = 'text';     btn.textContent = 'HIDE'; }
+    else                         { inp.type = 'password'; btn.textContent = 'SHOW'; }
+  }
+
+  function setStatus(msg, type='') {
+    const el = document.getElementById('status');
+    el.textContent = msg;
+    el.className = 'status ' + type;
+  }
+
+  function clearOutput() {
+    const box = document.getElementById('output-box');
+    box.innerHTML = '<button class="copy-btn" onclick="copyOut()">COPY</button><span id="output-placeholder">output appears here</span>';
+    box.className = 'output-box empty';
+    setStatus('');
+  }
+
+  function setOutput(text, isEmoji) {
+    const box = document.getElementById('output-box');
+    box.className = 'output-box' + (isEmoji ? '' : ' plaintext');
+    box.innerHTML = '<button class="copy-btn" onclick="copyOut()">COPY</button>' + escapeHtml(text);
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function copyOut() {
+    const box = document.getElementById('output-box');
+    const clone = box.cloneNode(true);
+    clone.querySelectorAll('button').forEach(b => b.remove());
+    const text = clone.textContent;
+    navigator.clipboard.writeText(text).then(() => setStatus('copied to clipboard.', 'ok'));
+  }
+
+  async function run() {
+    const text = document.getElementById('txt-input').value;
+    const pw   = document.getElementById('txt-pw').value;
+    const btn  = document.getElementById('btn-run');
+
+    btn.classList.add('loading');
+    clearOutput();
+
+    const endpoint = mode === 'encrypt' ? '/api/encrypt' : '/api/decrypt';
+
+    try {
+      const res  = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, password: pw })
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setStatus(data.error || 'something went wrong.', 'error');
+      } else {
+        setOutput(data.result, mode === 'encrypt');
+        if (mode === 'encrypt') {
+          setStatus(`encrypted — ${data.chars} chars → ${data.emoji} emoji`, 'ok');
+        } else {
+          setStatus(`decrypted — ${data.chars} chars`, 'ok');
+        }
+      }
+    } catch (e) {
+      setStatus('connection error.', 'error');
+    } finally {
+      btn.classList.remove('loading');
+    }
+  }
+
+  // enter to submit
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.ctrlKey) run();
+  });
+</script>
+</body>
+</html>
