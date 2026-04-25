@@ -405,20 +405,20 @@
 
   <!-- explainer -->
   <div class="explainer">
-    <h2>HOW IT WORKS</h2>
+    <h2>CARA KERJA</h2>
     <div class="formula">
-      <strong>ENCRYPT:</strong> index = (ord(char) + ord(key[i % len(key)])) % {{ emoji_count }}<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ciphertext += emoji_table[index]
+      <strong>ENKRIPSI:</strong> index = (ord(karakter) + ord(kunci[i % len(kunci)])) % {{ emoji_count }}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ciphertext += tabel_emoji[index]
     </div>
     <div class="formula">
-      <strong>DECRYPT:</strong> index = position of emoji in table<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;char = chr((index − ord(key[i % len(key)])) % {{ emoji_count }})
+      <strong>DEKRIPSI:</strong> index = posisi emoji di dalam tabel<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;karakter = chr((index - ord(kunci[i % len(kunci)])) % {{ emoji_count }})
     </div>
     <p>
-      Each character is shifted by a different amount determined by the corresponding
-      character of the password — cycling back to the start when the password runs out.
-      This is the same principle as the Vigenère cipher, but the output alphabet is
-      {{ emoji_count }} emoji instead of 26 letters.
+      Setiap karakter digeser sejauh nilai numerik karakter password yang bersesuaian.
+      Kalau pesan lebih panjang dari password, password diulang dari awal.
+      Prinsipnya sama dengan Vigenere cipher, bedanya alfabet yang dipakai bukan 26 huruf
+      melainkan {{ emoji_count }} emoji.
     </p>
   </div>
 

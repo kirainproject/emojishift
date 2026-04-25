@@ -7,10 +7,10 @@ _EMOJI_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "all-e
 _emoji_list: list = []
 _emoji_to_index: dict = {}
 
-NOISE_COUNT = 2   # noise emoji per karakter asli
-ASCII_BASE = 32   # printable ASCII mulai dari spasi
-ASCII_RANGE = 95  # spasi (32) sampai ~ (126)
-TAG_LEN = 4       # jumlah emoji untuk HMAC tag di awal ciphertext
+NOISE_COUNT = 2   
+ASCII_BASE = 32  
+ASCII_RANGE = 95  
+TAG_LEN = 4  
 
 
 def _load():
@@ -72,7 +72,6 @@ def encrypt(text: str, password: str) -> str:
     n = len(_emoji_list)
     shifts = [ord(c) for c in password]
 
-    # tag 4 emoji di awal
     tag = _make_tag(password, text)
 
     out = [tag]
@@ -93,14 +92,12 @@ def decrypt(cipher: str, password: str) -> str:
 
     tokens = list(cipher)
 
-    # pisah tag (4 emoji pertama) dari isi
     if len(tokens) < TAG_LEN:
         raise ValueError("Invalid ciphertext")
 
     tag_emoji = "".join(tokens[:TAG_LEN])
     body = tokens[TAG_LEN:]
 
-    # decrypt dulu baru verifikasi tag
     result = []
     step = 1 + NOISE_COUNT
     for i, tok_idx in enumerate(range(0, len(body), step)):
@@ -114,7 +111,6 @@ def decrypt(cipher: str, password: str) -> str:
         result.append(chr(idx + ASCII_BASE))
     plaintext = "".join(result)
 
-    # verifikasi tag
     expected_tag = _make_tag(password, plaintext)
     if tag_emoji != expected_tag:
         raise ValueError("Wrong password or corrupted ciphertext")
