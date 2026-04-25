@@ -1,12 +1,14 @@
 import os
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, make_response
 import emojishift
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html", emoji_count=emojishift.total())
+    resp = make_response(render_template("index.html", emoji_count=emojishift.total()))
+    resp.headers['Cache-Control'] = 'public, max-age=3600'
+    return resp
 
 @app.route("/api/encrypt", methods=["POST"])
 def api_encrypt():
